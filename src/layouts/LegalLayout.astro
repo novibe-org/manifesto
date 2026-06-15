@@ -1,0 +1,74 @@
+---
+import Layout from "./Layout.astro";
+
+interface Props {
+  title: string;
+  heading: string;
+}
+
+const { title, heading } = Astro.props;
+---
+
+<Layout title={title}>
+  <main class="legal">
+    <a href="/" class="back">&larr; NoVibe</a>
+    <h1>{heading}</h1>
+    <slot />
+  </main>
+</Layout>
+
+<style is:global>
+  .legal {
+    max-width: 40rem;
+    margin-inline: auto;
+    padding: clamp(5rem, 12vh, 7rem) clamp(1.25rem, 6vw, 2rem)
+      clamp(4rem, 10vh, 6rem);
+  }
+
+  .legal .back {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .legal h1 {
+    font-size: clamp(2rem, 5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .legal h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .legal p,
+  .legal li {
+    color: #34343c;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .legal ul {
+    padding-left: 1.2rem;
+    margin-top: 0.4rem;
+  }
+
+  .legal a:not(.back) {
+    color: var(--accent);
+  }
+
+  .legal .meta {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--faint);
+  }
+</style>

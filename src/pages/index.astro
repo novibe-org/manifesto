@@ -130,9 +130,13 @@ import Layout from "../layouts/Layout.astro";
 
     <footer class="foot">
       <span>NoVibe</span>
-      <a href="https://github.com/novibe-org" target="_blank" rel="noopener"
-        >novibe&#8209;org</a
-      >
+      <nav class="foot-links">
+        <a href="/legal">Legal</a>
+        <a href="/privacy">Privacy</a>
+        <a href="https://github.com/novibe-org" target="_blank" rel="noopener"
+          >novibe&#8209;org</a
+        >
+      </nav>
     </footer>
   </main>
 </Layout>
@@ -407,6 +411,11 @@ import Layout from "../layouts/Layout.astro";
     border-top: 1px solid var(--line);
     font-size: 0.85rem;
     color: var(--faint);
+  }
+
+  .foot-links {
+    display: flex;
+    gap: 1.4rem;
   }
 
   .foot a {
