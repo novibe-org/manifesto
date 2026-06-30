@@ -1,43 +1,35 @@
-# Astro Starter Kit: Minimal
+<div align="center">
+
+# The NoVibe Manifesto
+
+### Be the driver, not the passenger.
+
+Source for **[novibe.org](https://novibe.org)** — the manifesto site.
+
+[![Astro](https://img.shields.io/badge/built_with-Astro-bc52ee?style=flat-square)](https://astro.build)
+
+</div>
+
+---
+
+AI made writing code cheap. The work that matters — deciding what to build, designing it,
+proving it right, keeping it alive — didn't change. Vibe coding sells the comforting lie that
+the typing *was* the work. NoVibe is the refusal: shape the work, own it from intent to ship.
+
+This repo is the [Astro](https://astro.build) site that publishes the manifesto.
+
+## Develop
+
+Requires Node ≥ 22.12.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev        # local dev server at http://localhost:4321
+npm run build      # production build → ./dist/
+npm run preview    # preview the build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Related
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **[nv-plugins](https://github.com/novibe-org/nv-plugins)** — the NoVibe method as a Claude Code plugin (architecture → spec → TDD).
+- **nv** — the workspace tool *(coming soon)*.
