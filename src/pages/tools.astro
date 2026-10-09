@@ -64,6 +64,7 @@ const coming = [
 
     <section class="card span-5 bg-yellow tilt-l product">
       <span class="sticker bg-white">01 · The plugin + guard rails</span>
+      <img class="product-icon" src="/icons/plugin.svg" alt="" width="84" height="84" />
       <h2>The NoVibe flow, as skills.</h2>
       <p>
         <code>requirements-engineer</code>, <code>architect</code>, <code>developer</code> — and
@@ -77,6 +78,7 @@ const coming = [
 
     <section class="card span-4 bg-blue tilt-r product">
       <span class="sticker bg-mint">02 · agentbox</span>
+      <img class="product-icon" src="/icons/agentbox.svg" alt="" width="84" height="84" />
       <h2>One container per agent session.</h2>
       <p>On a remote Docker host, reached over SSH. helix, yazi, lazygit, delta and ripgrep inside.</p>
       <a class="btn alt" href="https://github.com/novibe-org/agentbox" target="_blank" rel="noopener">novibe-org/agentbox ↗</a>
@@ -84,6 +86,7 @@ const coming = [
 
     <section class="card span-3 bg-mint product">
       <span class="sticker bg-pink">03 · cockpit</span>
+      <img class="product-icon" src="/icons/cockpit.svg" alt="" width="84" height="84" />
       <h2>The driver's view.</h2>
       <p>The spec on any branch, what the tests proved, and the plan — metrics next. Built the NoVibe way, so it is also the example to copy from.</p>
       <a class="btn" href="https://github.com/novibe-org/cockpit" target="_blank" rel="noopener">novibe-org/cockpit ↗</a>
@@ -170,6 +173,18 @@ const coming = [
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
+  }
+
+  .product-icon {
+    position: absolute;
+    top: -1.6rem;
+    right: 1.2rem;
+    margin: 0;
+    transform: rotate(4deg);
+  }
+
+  .product h2 {
+    padding-right: 5.5rem;
   }
 
   .product code {

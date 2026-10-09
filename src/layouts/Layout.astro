@@ -37,7 +37,7 @@ const links = [
   </head>
   <body>
     <nav class="topbar">
-      <a href="/" class="wordmark">NoVibe</a>
+      <a href="/" class="brand"><img src="/icons/novibe.svg" alt="" width="40" height="40" /><span class="wordmark">NoVibe</span></a>
       <div class="navlinks">
         {
           links.map((l) => (
@@ -141,6 +141,13 @@ const links = [
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: var(--border);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
   }
 
   .wordmark {
