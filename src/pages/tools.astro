@@ -1,0 +1,217 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const layers = [
+  {
+    name: "Run",
+    what: "the agent works in a sandbox, remote, while your laptop is closed",
+    tools: [["agentbox", true], ["Claude Code", false]],
+    bg: "bg-blue",
+  },
+  {
+    name: "Decide",
+    what: "read and shape the intent",
+    tools: [["cockpit — the spec, what the tests proved, the plan", true], ["LikeC4 — the design", false]],
+    bg: "bg-yellow",
+  },
+  {
+    name: "Read & review",
+    what: "skip through code and changes, in the terminal",
+    tools: [["helix", false], ["yazi", false], ["lazygit", false], ["delta", false], ["ripgrep", false]],
+    bg: "bg-mint",
+  },
+  {
+    name: "Enforce",
+    what: "what has to hold every time",
+    tools: [["guard rails — git hooks", true], ["linters & architecture tests", false], ["async review agents", false]],
+    bg: "bg-pink",
+  },
+];
+
+const coming = [
+  { h: "A knowledge graph of the domain", p: "in place of wiki pages" },
+  { h: "Architecture tests and review in the plugin", p: "novibe#34", href: "https://github.com/novibe-org/novibe/issues/34" },
+  { h: "A video", p: "setting up, and one feature from idea to merge — manifesto#1", href: "https://github.com/novibe-org/manifesto/issues/1" },
+];
+---
+
+<Layout page="tools" title="What we built · NoVibe" description="The NoVibe stack: tools for deciding, reading and reviewing — not for typing.">
+  <main class="canvas">
+    <header class="card span-6 bg-pink intro">
+      <span class="sticker bg-white">The NoVibe stack</span>
+      <h1>Tools for deciding, not for typing.</h1>
+      <p class="deck">No IDE. A sandbox for the agent, viewers for the spec and the design, fast tools for reading — and guard rails.</p>
+    </header>
+
+    <section class="span-6 stack" aria-label="The NoVibe stack, layer by layer">
+      {
+        layers.map((l, i) => (
+          <div class:list={["card", "layer", l.bg]} style={`--i:${i}`}>
+            <div class="layer-head">
+              <h2>{l.name}</h2>
+              <p>{l.what}</p>
+            </div>
+            <div class="layer-tools">
+              {l.tools.map(([t, ours]) => (
+                <span class:list={["tool", { ours }]}>{t}</span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+      <p class="legend"><span class="tool ours">built by us</span> <span class="tool">third-party</span></p>
+    </section>
+
+    <section class="card span-5 bg-yellow tilt-l product">
+      <span class="sticker bg-white">01 · The plugin + guard rails</span>
+      <h2>The NoVibe flow, as skills.</h2>
+      <p>
+        <code>requirements-engineer</code>, <code>architect</code>, <code>developer</code> — and
+        <code>novibe</code> driving them — plus the git hooks and conventions that keep it honest.
+        Plain <code>SKILL.md</code>, packaged as a Claude Code plugin.
+      </p>
+      <pre><code>/plugin marketplace add novibe-org/novibe
+/plugin install novibe</code></pre>
+      <a class="btn" href="https://github.com/novibe-org/novibe" target="_blank" rel="noopener">novibe-org/novibe ↗</a>
+    </section>
+
+    <section class="card span-4 bg-blue tilt-r product">
+      <span class="sticker bg-mint">02 · agentbox</span>
+      <h2>One container per agent session.</h2>
+      <p>On a remote Docker host, reached over SSH. helix, yazi, lazygit, delta and ripgrep inside.</p>
+      <a class="btn alt" href="https://github.com/novibe-org/agentbox" target="_blank" rel="noopener">novibe-org/agentbox ↗</a>
+    </section>
+
+    <section class="card span-3 bg-mint product">
+      <span class="sticker bg-pink">03 · cockpit</span>
+      <h2>The driver's view.</h2>
+      <p>The spec on any branch, what the tests proved, and the plan — metrics next. Built the NoVibe way, so it is also the example to copy from.</p>
+      <a class="btn" href="https://github.com/novibe-org/cockpit" target="_blank" rel="noopener">novibe-org/cockpit ↗</a>
+    </section>
+
+    <section class="card span-12 bg-ink coming">
+      <span class="sticker bg-orange">Coming</span>
+      <ul>
+        {
+          coming.map((c) => (
+            <li>
+              <h3>{c.h}</h3>
+              <p>{c.href ? <a href={c.href} target="_blank" rel="noopener">{c.p}</a> : c.p}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .intro h1 {
+    font-size: clamp(2.8rem, 6vw, 5.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  .deck {
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    max-width: 34rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .layer {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding-block: 1rem;
+    margin-left: calc(var(--i) * 1.2rem);
+  }
+
+  .layer > * + * {
+    margin-top: 0;
+  }
+
+  .layer-head h2 {
+    font-size: 1.6rem;
+  }
+
+  .layer-head p {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .layer-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .tool {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .tool.ours {
+    background: var(--ink);
+    color: var(--yellow);
+  }
+
+  .legend {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+  }
+
+  .product code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+  }
+
+  .product pre {
+    background: var(--ink);
+    color: var(--mint);
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    overflow-x: auto;
+    font-size: 0.9rem;
+  }
+
+  .coming ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 0.6rem;
+  }
+
+  .coming li {
+    border: 2px dashed var(--paper);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+  }
+
+  .coming h3 {
+    color: var(--yellow);
+    margin-bottom: 0.3rem;
+  }
+
+  @media (max-width: 900px) {
+    .layer {
+      grid-template-columns: 1fr;
+      margin-left: 0;
+    }
+    .coming ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

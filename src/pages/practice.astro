@@ -1,0 +1,367 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const steps = [
+  {
+    n: "1",
+    h: "Specify",
+    p: "The requirements engineer asks, one question round at a time, until a Gherkin feature file holds what to build: concrete scenarios, agreed one by one.",
+    bg: "bg-yellow",
+  },
+  {
+    n: "2",
+    h: "Design",
+    p: "The architect asks the same way until a LikeC4 model holds the design, its views layered after arc42. An ADR only for a crucial, cross-cutting decision.",
+    bg: "bg-blue",
+  },
+  {
+    n: "3",
+    h: "Build",
+    p: "Test-first: the feature file is what executes, red → green, until every scenario passes.",
+    bg: "bg-mint",
+  },
+  {
+    n: "4",
+    h: "Review & ship",
+    p: "Review agents check the code against the architecture and for security while you start the next slice; agent merge answers the comments and merges.",
+    bg: "bg-pink",
+  },
+];
+
+const principles = [
+  {
+    s: "Spec → Design → Tests",
+    h: "In order.",
+    p: "The spec and the model are the contract; the code is their consequence.",
+    sticker: "bg-yellow",
+  },
+  {
+    s: "Plan wide · Build small",
+    h: "Plan wide, build small.",
+    p: "Specify as much as you like; build one rule, three scenarios at most, at a time. What the slice doesn't need is parked as backlog — never gold-plated in.",
+    note: "Small batches are one of the seven capabilities that decide whether AI helps a team or hurts it.",
+    href: "https://dora.dev",
+    src: "DORA 2025",
+    sticker: "bg-mint",
+  },
+  {
+    s: "Guard rails > Guidance",
+    h: "Enforce, don't hope.",
+    p: "Skills guide the agent; git hooks, tests and linters enforce what has to hold every time.",
+    sticker: "bg-orange",
+  },
+  {
+    s: "1 task = 1 session",
+    h: "One task, one session.",
+    p: "Each slice runs in a session of its own, review agents alongside. No lead agent briefing developer agents — every agent reads the spec first-hand.",
+    sticker: "bg-pink",
+  },
+];
+
+const practices = [
+  ["Feature files by functionality", "Folders are what the system does; epics and priorities live in the plan, never in the file. A feature's @id: is its ticket.", "bg-yellow"],
+  ["Concrete scenarios", "Real values, and what someone outside can see — never a rule restated in the abstract.", "bg-white"],
+  ["Plain industry terms", "No invented names, no vague words.", "bg-mint"],
+  ["Test and review the architecture", "Architecture tests — ArchUnit and its kind — and review agents that flag where the code drifts from the model.", "bg-white"],
+  ["Automate what costs you time", "A check you keep doing by hand becomes a guard rail; a review you keep repeating becomes an agent.", "bg-pink"],
+  ["Run remote", "A sandbox per session keeps the agent away from your machine, and the work goes on when you close your laptop. agentbox is one way; where your agents run is your choice.", "bg-white"],
+];
+
+const commits = [
+  ["spec", "the cockpit speaks of a repository's default branch instead of main"],
+  ["arch", "the cockpit reads the repository's default branch instead of assuming main"],
+  ["feat", "the cockpit says the default branch where it said main"],
+  ["feat", "the Worker takes the default branch from GitHub instead of MAIN"],
+  ["spec", "the default branch shown first is develop, so the example proves it is not assumed to be main"],
+  ["arch", "CI runs push runs on this repository's default branch"],
+  ["test", "the stand-in's default branch is the one the scenario names"],
+];
+
+const phase: Record<string, string> = { spec: "bg-yellow", arch: "bg-blue", feat: "bg-mint", test: "bg-pink" };
+---
+
+<Layout page="practice" title="How we work · NoVibe" description="Spec-driven development on standards engineers already know: an executable spec, a design you can look at, and guard rails that hold every time.">
+  <main class="canvas">
+    <header class="card span-7 bg-mint intro">
+      <span class="sticker bg-white">The practice</span>
+      <h1>How we work.</h1>
+      <p class="deck">
+        Everyone does spec-driven development now. Ours rests on standards engineers already know —
+        an executable spec, a design you can look at, and guard rails that hold every time.
+      </p>
+    </header>
+
+    <section class="card span-5 bg-ink tilt-r compare">
+      <span class="sticker bg-yellow">How it compares</span>
+      <p>
+        Spec Kit, Kiro, OpenSpec and Tessl drive the agent from specifications written as Markdown
+        documents. Superpowers and grill-me bring discipline to the agent's workflow as skills.
+        NoVibe takes the grilling — through the agent's own question tool — and builds on standards
+        instead:
+      </p>
+      <dl>
+        <div><dt>The spec</dt><dd>Gherkin that executes as the tests — BDD</dd></div>
+        <div><dt>The design</dt><dd>a C4 model with arc42 views, and ADRs</dd></div>
+        <div><dt>What holds</dt><dd>git hooks, not instructions</dd></div>
+        <div><dt>A change</dt><dd>one small slice per session</dd></div>
+      </dl>
+    </section>
+
+    <section class="span-12 loop">
+      <span class="sticker bg-violet loop-title">How a slice runs</span>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li class:list={["card", s.bg]}>
+              <span class="step-n">{s.n}</span>
+              <h2>{s.h}</h2>
+              <p>{s.p}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    {
+      principles.map((p, i) => (
+        <section class:list={["card", "span-6", i % 2 ? "tilt-r" : "tilt-l"]}>
+          <span class:list={["sticker", p.sticker]}>{p.s}</span>
+          <h2>{p.h}</h2>
+          <p>{p.p}</p>
+          {p.note && (
+            <p class="note">
+              {p.note} <a href={p.href} target="_blank" rel="noopener">{p.src}</a>
+            </p>
+          )}
+        </section>
+      ))
+    }
+
+    <section class="card span-12 bg-yellow practices">
+      <span class="sticker bg-white">Practices</span>
+      <h2>What that means, day to day.</h2>
+      <div class="practice-grid">
+        {
+          practices.map(([h, p, bg]) => (
+            <div class:list={["practice", bg]}>
+              <h3>{h}</h3>
+              <p>{p}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="card span-8 slice">
+      <span class="sticker bg-mint">One real slice</span>
+      <h2>The cockpit reads a repository's default branch instead of assuming <code>main</code>.</h2>
+      <p>
+        <a href="https://github.com/novibe-org/cockpit/pull/26" target="_blank" rel="noopener">cockpit#26</a>, seven commits:
+      </p>
+      <ol class="commits">
+        {
+          commits.map(([type, msg], i) => (
+            <li class:list={{ lesson: i === 4 }}>
+              <span class:list={["phase", phase[type]]}>{type}</span>
+              <span>{msg}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <aside class="card span-4 bg-pink tilt-r lesson-card">
+      <span class="sticker bg-yellow">Commit 5 is the lesson</span>
+      <p class="big">
+        The first scenario's example said <code>"main"</code> — and an example that matches the old
+        assumption proves nothing.
+      </p>
+      <p class="big">A concrete value that differs does.</p>
+    </aside>
+  </main>
+</Layout>
+
+<style>
+  .intro h1 {
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  .deck {
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    max-width: 40rem;
+  }
+
+  .compare dl {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .compare dl div {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 0.6rem;
+    border-top: 2px solid color-mix(in srgb, var(--paper) 30%, transparent);
+    padding-top: 0.5rem;
+  }
+
+  .compare dt {
+    font-weight: 800;
+    color: var(--yellow);
+  }
+
+  .loop {
+    position: relative;
+    padding-top: 1.2rem;
+  }
+
+  .loop-title {
+    position: absolute;
+    top: -0.4rem;
+    left: 1.2rem;
+    z-index: 2;
+    color: var(--white);
+    font-size: 1.3rem;
+  }
+
+  .steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.25rem, 2.4vw, 2rem);
+    counter-reset: none;
+  }
+
+  .steps li {
+    padding-top: 2.4rem;
+  }
+
+  .steps li:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -1.55rem;
+    top: 50%;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.8rem;
+    transform: translateY(-50%);
+    color: var(--ink);
+    z-index: 3;
+  }
+
+  .step-n {
+    position: absolute;
+    top: -1.2rem;
+    right: 1.2rem;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    background: var(--white);
+    color: var(--ink);
+    border: var(--border);
+    border-radius: 50%;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .note {
+    font-size: 0.95rem;
+    border-left: 4px solid var(--mint);
+    padding-left: 0.8rem;
+  }
+
+  .practice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .practice {
+    border: var(--border);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .practice h3 {
+    margin-bottom: 0.4rem;
+  }
+
+  .commits {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+    counter-reset: c;
+  }
+
+  .commits li {
+    counter-increment: c;
+    display: grid;
+    grid-template-columns: 2rem 4.2rem 1fr;
+    align-items: center;
+    gap: 0.6rem;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    padding: 0.45rem 0.8rem;
+    background: var(--paper);
+    font-weight: 600;
+  }
+
+  .commits li::before {
+    content: counter(c);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+
+  .commits li.lesson {
+    background: var(--pink);
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(-0.6deg);
+  }
+
+  .phase {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: center;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.05rem 0.4rem;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+  }
+
+  .lesson-card .big {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    line-height: 1.15;
+  }
+
+  @media (max-width: 1100px) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .steps li::after {
+      display: none;
+    }
+    .practice-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .steps,
+    .practice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,473 +1,404 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const slogans = [
+  ["Intent", "Output", "bg-yellow"],
+  ["Spec", "Prompt", "bg-pink"],
+  ["Small slices", "Big prompts", "bg-mint"],
+  ["Guard rails", "Guidance", "bg-orange"],
+  ["Contract", "Briefing", "bg-white"],
+  ["Standards", "Invention", "bg-yellow"],
+  ["Decide", "Type", "bg-pink"],
+  ["Driver", "Passenger", "bg-mint"],
+];
+
+const skipped = [
+  "acceptance criteria in Gherkin",
+  "the test before the code",
+  "an architecture designed, documented, and easy to find",
+];
+
+const lessons = [
+  {
+    s: "Intent > Diff",
+    h: "Review the intent, not the diff.",
+    p: "Reading a thousand generated lines is review hell. Review the scenario and the design before a line exists; the tests prove the rest.",
+    bg: "bg-blue",
+    tilt: "tilt-l",
+    sticker: "bg-yellow",
+  },
+  {
+    s: "Small slices > Big prompts",
+    h: "Small slices beat big prompts.",
+    p: "The bigger the ask, the more the machine fills with its own defaults. One rule, a few scenarios, one session — and you stay the author.",
+    bg: "bg-orange",
+    tilt: "tilt-r",
+    sticker: "bg-white",
+  },
+  {
+    s: "Guard rails > Guidance",
+    h: "Guidance isn't enforcement.",
+    p: "An agent follows its instructions most of the time. What has to hold every time is a git hook, a test, a linter — deterministic, whatever the agent made of its prompt.",
+    bg: "bg-violet",
+    tilt: "tilt-l",
+    sticker: "bg-mint",
+  },
+];
 ---
 
-<Layout>
-  <nav class="topbar">
-    <a href="#top" class="wordmark">NoVibe</a>
-    <div class="navlinks">
-      <a href="#act-1">I</a>
-      <a href="#act-2">II</a>
-      <a href="#landing">Climb</a>
-    </div>
-  </nav>
-
-  <main id="top">
-    <header class="hero">
-      <p class="kicker reveal">The NoVibe Manifesto</p>
-      <h1 class="headline reveal">Coding was never the&nbsp;work.</h1>
-      <p class="deck reveal">
-        So making it free did not make software free. They call it
-        <em>vibe coding</em> &mdash; describe it, ship it, done. It is a
-        comforting lie about where the work actually lives.
+<Layout page="manifesto">
+  <main class="canvas">
+    <header class="card hero bg-yellow span-8">
+      <span class="sticker bg-white">The NoVibe Manifesto</span>
+      <h1>Intent is the work, not&nbsp;output.</h1>
+      <p class="deck">
+        A few words of hope become a mountain of code that cannot be what you meant — because you
+        never said what you meant. The gaps you leave are filled by the machine's defaults, not your
+        intent.
       </p>
-      <dl class="proof reveal">
-        <div>
-          <dt>11%</dt>
-          <dd>of a developer&rsquo;s day is actually spent writing code</dd>
-        </div>
-        <div>
-          <dt>19% slower</dt>
-          <dd>experienced devs <em>with</em> AI &mdash; while sure they were faster</dd>
-        </div>
-        <div>
-          <dt>50&ndash;200&times;</dt>
-          <dd>the cost to fix what you got wrong in the requirements</dd>
-        </div>
-      </dl>
+      <p class="claim">You manage the intent. The machine writes the code.</p>
+      <div class="ctas">
+        <a class="btn" href="/practice">How we work →</a>
+        <a class="btn alt" href="/tools">What we built →</a>
+      </div>
     </header>
 
-    <section id="act-1" class="act">
-      <p class="act-num reveal">I</p>
-      <h2 class="act-title reveal">Most of the work was always invisible</h2>
+    <aside class="card span-4 bg-ink tilt-r danger">
+      <span class="sticker bg-orange">⚠ Danger</span>
+      <p>
+        Skip that work and you don't get magic — you get danger. Insecure code ships easily now,
+        because the risk lived in the requirements you never set.
+      </p>
+    </aside>
 
-      <article class="spine reveal">
-        <h3>Coding is the last mile, not the journey.</h3>
-        <p>
-          Writing code is the smallest, last part of building software &mdash;
-          and AI made exactly that part cheap. The work that remains is the work
-          that was always hard: deciding what to build, designing it, proving it
-          right, and keeping it alive.
-        </p>
-      </article>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        {
+          [...slogans, ...slogans].map(([a, b, bg]) => (
+            <span class:list={["sticker", bg]}>
+              {a} &gt; {b}
+            </span>
+          ))
+        }
+      </div>
+    </div>
 
-      <article class="spine reveal">
-        <h3>Intent is the work, not output.</h3>
-        <p>
-          A few words of hope become a mountain of code that cannot be what you
-          meant &mdash; because you never said what you meant. The gaps you
-          leave are filled by the machine&rsquo;s defaults, not your intent.
-          Specify the essential; do not drown in the generated.
-        </p>
-      </article>
+    <section class="card span-8 bg-mint knew">
+      <span class="sticker bg-white">Knew it &gt; Did it</span>
+      <h2>What everyone knew, and almost no one did.</h2>
+      <ul class="skipped">
+        {
+          skipped.map((s) => (
+            <li>
+              <span class="should">Everyone should have written {s}.</span>
+              <span class="verdict">
+                <s>effort</s> <span class="sticker bg-yellow">now the cheap part</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        Not because they were wrong — because they took effort, and effort was the first thing cut
+        when time ran short. That has inverted. An agent asks the questions until the scenarios hold,
+        writes the tests before the code, and keeps the model and the decisions next to it.
+      </p>
+      <p class="claim small">A high-quality codebase is a default you choose — not a budget you fight for.</p>
+    </section>
 
-      <p class="aside reveal">
-        And when you skip that work, you do not get magic &mdash; you get
-        danger. Insecure, ill&#8209;formed code ships easily now, because the
-        risk lived in the requirements you never set.
+    <section class="card span-4 tilt-l">
+      <span class="sticker bg-blue">Standards &gt; Invention</span>
+      <h2>Standards, not invention.</h2>
+      <p>Gherkin, C4, arc42, ADRs: what is known to work, in words every engineer already knows.</p>
+      <div class="chips">
+        <span>Gherkin</span><span>BDD</span><span>TDD</span><span>C4</span><span>arc42</span><span>ADR</span>
+      </div>
+    </section>
+
+    {
+      lessons.map((l) => (
+        <section class:list={["card", "span-4", l.bg, l.tilt]}>
+          <span class:list={["sticker", l.sticker]}>{l.s}</span>
+          <h2>{l.h}</h2>
+          <p>{l.p}</p>
+        </section>
+      ))
+    }
+
+    <section class="card span-5 tilt-r">
+      <span class="sticker bg-pink">Contract &gt; Briefing</span>
+      <h2>A contract, not a briefing.</h2>
+      <p>
+        Agents briefing agents pass on misinformation — read their briefings and you find it. Every
+        agent reads the spec and the model first-hand.
+      </p>
+      <div class="relay" aria-hidden="true">
+        <span class="hop">spec</span><span class="arrow">→</span><span class="hop bad">brief</span><span class="arrow">→</span><span class="hop bad">brief of brief</span><span class="arrow">→</span><span class="hop bad">??</span>
+      </div>
+    </section>
+
+    <section class="card span-7 bg-ink ide">
+      <span class="sticker bg-yellow">Decide &gt; Type</span>
+      <h2>You don't need an IDE.</h2>
+      <p class="ide-strike" aria-hidden="true"><s>IDE</s></p>
+      <p>
+        An IDE is a tool for editing text, and you no longer edit text: you decide, you read, you
+        review. What you need is a sandbox for the agent, viewers for the spec and the design, fast
+        tools for skipping through code and changes — and guard rails.
+      </p>
+      <a class="btn alt" href="/tools">The NoVibe stack →</a>
+    </section>
+
+    <section class="card span-5 bg-yellow tilt-l">
+      <span class="sticker bg-white">Heavy &gt; Light</span>
+      <h2>The heavy tools get light.</h2>
+      <p>
+        Ticket trackers were built for writing long tickets; with the intent in the spec, they keep
+        the epics and the priorities, nothing more. Wiki pages give way to a knowledge graph of the
+        domain — coming to NoVibe.
       </p>
     </section>
 
-    <section id="act-2" class="act">
-      <p class="act-num reveal">II</p>
-      <h2 class="act-title reveal">What changed, and what no one is building for</h2>
-
-      <article class="spine reveal">
-        <h3>Change got cheap, so quality is a choice.</h3>
-        <p>
-          For decades, quality was a budget &mdash; refactoring, structure, and
-          documentation were the first things cut when time ran short. That has
-          inverted. A clean, coherent system is no longer a luxury you fight
-          for. It is a default you choose.
-        </p>
-      </article>
-
-      <article class="spine reveal">
-        <h3>There is a tool gap, and no one is naming it.</h3>
-        <p>
-          The talk is all of models and prompts; the tools go unmentioned. They
-          were built for one person typing &mdash; but the work has moved to
-          deciding, designing, verifying, and coordinating, together. Between
-          what the work now asks and what the tools offer lies a gap no one is
-          closing.
-        </p>
-      </article>
-    </section>
-
-    <section id="landing" class="landing">
-      <p class="landing-intro reveal">
-        The machine writes the code now. That leaves two ways to work.
-      </p>
-
-      <div class="dichotomy reveal">
+    <section class="card span-7 roles">
+      <span class="sticker bg-mint">Driver &gt; Passenger</span>
+      <h2>The machine writes the code now. That leaves two ways to work.</h2>
+      <div class="dichotomy">
         <div class="col passenger">
-          <p class="role">
-            <span class="role-kind">Passenger</span>the translator
-          </p>
+          <p class="role">Passenger <span>the translator</span></p>
           <ul>
-            <li>turns requirements into code</li>
-            <li>audits what the machine made</li>
+            <li>prompts, and hopes</li>
+            <li>reviews what the machine made</li>
             <li>trapped in review hell</li>
           </ul>
         </div>
-
-        <div class="divider" aria-hidden="true"></div>
-
         <div class="col driver">
-          <p class="role">
-            <span class="role-kind">Driver</span>the author
-          </p>
+          <p class="role">Driver <span>the author</span></p>
           <ul>
-            <li>shapes the work</li>
-            <li>owns it &mdash; intent to ship</li>
-            <li>design &middot; judgment &middot; taste</li>
+            <li>decides the intent</li>
+            <li>reviews the spec and the design</li>
+            <li>owns it, from intent to ship</li>
           </ul>
         </div>
       </div>
-
-      <p class="reveal punch">Be the driver, never the passenger.</p>
     </section>
 
-    <footer class="foot">
-      <span>NoVibe</span>
-      <nav class="foot-links">
-        <a href="/legal">Legal</a>
-        <a href="/privacy">Privacy</a>
-        <a href="https://github.com/novibe-org" target="_blank" rel="noopener"
-          >novibe&#8209;org</a
-        >
-      </nav>
-    </footer>
+    <section class="card span-12 bg-violet punch">
+      <h2>Be the driver, never the passenger.</h2>
+      <div class="ctas">
+        <a class="btn alt" href="/practice">How we work →</a>
+        <a class="btn alt" href="/tools">What we built →</a>
+      </div>
+    </section>
   </main>
 </Layout>
 
 <style>
-  .topbar {
-    position: fixed;
-    inset: 0 0 auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.1rem clamp(1.25rem, 5vw, 3rem);
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid transparent;
-    z-index: 10;
-    transition: border-color 0.3s ease;
-  }
-
-  .topbar.scrolled {
-    border-bottom-color: var(--line);
-  }
-
-  .wordmark {
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    text-decoration: none;
-    font-size: 1rem;
-  }
-
-  .navlinks {
-    display: flex;
-    gap: 1.4rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--muted);
-  }
-
-  .navlinks a {
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .navlinks a:hover {
-    color: var(--accent);
-  }
-
-  main {
-    max-width: var(--measure);
-    margin-inline: auto;
-    padding-inline: clamp(1.25rem, 6vw, 2rem);
-  }
-
-  .hero {
-    padding-block: clamp(6.5rem, 13vh, 8.5rem) clamp(3rem, 6vh, 4.5rem);
-  }
-
-  .kicker {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.4rem;
-  }
-
-  .headline {
-    font-size: clamp(2.6rem, 7vw, 4rem);
-    line-height: 1.04;
-    font-weight: 700;
+  .hero h1 {
+    font-size: clamp(3rem, 6.5vw, 6.5rem);
+    font-weight: 800;
+    line-height: 0.92;
     letter-spacing: -0.04em;
-    text-wrap: balance;
-    margin-bottom: 1.5rem;
   }
 
   .deck {
-    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
-    line-height: 1.45;
-    color: var(--muted);
-    max-width: 34rem;
-    text-wrap: pretty;
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    max-width: 40rem;
   }
 
-  .deck em {
-    font-style: normal;
-    color: var(--ink);
-    font-weight: 600;
-    border-bottom: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  .claim {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.05;
+    background: var(--ink);
+    color: var(--yellow);
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    transform: rotate(-1deg);
   }
 
-  .proof {
+  .claim.small {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--mint);
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding-top: 0.6rem;
+  }
+
+
+
+
+
+
+
+
+
+
+  .danger p {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    line-height: 1.2;
+  }
+
+  .skipped {
+    list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.25rem, 4vw, 2.5rem);
-    margin-top: clamp(2.5rem, 6vh, 4rem);
-    padding-top: 2rem;
-    border-top: 1px solid var(--line);
+    gap: 0.8rem;
   }
 
-  .proof dt {
-    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  .skipped li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem 1rem;
+    background: var(--white);
+    border: var(--border);
+    border-radius: 14px;
+    padding: 0.7rem 1rem;
+  }
+
+  .should {
+    font-family: var(--display);
     font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--accent);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  }
+
+  .verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+  }
+
+  .verdict s {
+    color: #c92a2a;
+    text-decoration-thickness: 3px;
+  }
+
+  .verdict .sticker {
+    font-size: 0.9rem;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chips span {
+    font-weight: 800;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    background: var(--paper);
+  }
+
+  .relay {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 800;
+  }
+
+  .hop {
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    padding: 0.2rem 0.6rem;
+    background: var(--mint);
+  }
+
+  .hop.bad {
+    background: var(--paper);
+    color: #c92a2a;
+  }
+
+  .hop.bad:nth-of-type(2) { transform: rotate(-2deg); }
+  .hop.bad:nth-of-type(3) { transform: rotate(3deg); }
+  .hop.bad:nth-of-type(4) { transform: rotate(-6deg); }
+
+  .ide-strike {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
     line-height: 1;
-    margin-bottom: 0.5rem;
+    color: var(--paper);
   }
 
-  .proof dd {
-    font-size: 0.875rem;
-    line-height: 1.4;
-    color: var(--muted);
-  }
-
-  .proof em {
-    font-style: italic;
-  }
-
-  @media (max-width: 38rem) {
-    .proof {
-      grid-template-columns: 1fr;
-      gap: 1.4rem;
-    }
-  }
-
-  .act {
-    padding-block: var(--space);
-    border-top: 1px solid var(--line);
-  }
-
-  .act-num {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    color: var(--faint);
-    margin-bottom: 0.9rem;
-  }
-
-  .act-title {
-    font-size: clamp(1.35rem, 3.4vw, 1.85rem);
-    line-height: 1.22;
-    font-weight: 700;
-    letter-spacing: -0.022em;
-    margin-bottom: 3.2rem;
-    text-wrap: balance;
-  }
-
-  .spine {
-    margin-bottom: 2.8rem;
-  }
-
-  .spine h3 {
-    font-size: 1.18rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.7rem;
-  }
-
-  .spine p {
-    color: #34343c;
-  }
-
-  .aside {
-    margin-top: 0.5rem;
-    padding-left: 1.2rem;
-    border-left: 2px solid var(--accent);
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .landing {
-    padding-block: var(--space);
-    border-top: 1px solid var(--line);
-  }
-
-  .landing-intro {
-    font-size: 1.0625rem;
-    line-height: 1.55;
-    color: var(--muted);
-    margin-bottom: clamp(2.25rem, 5vh, 3rem);
-    max-width: 28rem;
+  .ide-strike s {
+    text-decoration-color: var(--pink);
+    text-decoration-thickness: 0.12em;
   }
 
   .dichotomy {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: clamp(1.25rem, 4vw, 2.75rem);
-    align-items: start;
-    margin-bottom: clamp(2.5rem, 6vh, 3.5rem);
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 
-  .divider {
-    width: 1px;
-    align-self: stretch;
-    background: var(--line);
+  .col {
+    border: var(--border);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
   }
 
-  .col .role {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    margin-bottom: 1.2rem;
+  .passenger {
+    background: #eeeeee;
+    color: var(--faint);
+    border-style: dashed;
   }
 
-  .role-kind {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
+  .driver {
+    background: var(--mint);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .role {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .role span {
+    display: block;
+    font-family: "Inter Variable", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
   .col ul {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-
-  .col li {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
-  /* passenger = faded, the role you refuse */
-  .passenger {
-    color: var(--faint);
-  }
-  .passenger .role-kind {
-    color: var(--faint);
-  }
-
-  /* driver = vivid, the role you take */
-  .driver .role {
-    color: var(--ink);
-  }
-  .driver .role-kind {
-    color: var(--accent);
-  }
-  .driver li {
-    color: #34343c;
+    display: grid;
+    gap: 0.3rem;
+    font-weight: 600;
   }
 
   .punch {
-    font-size: clamp(1.7rem, 4.8vw, 2.6rem);
-    line-height: 1.1;
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    color: var(--accent);
-    text-wrap: balance;
+    text-align: center;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
   }
 
-  @media (max-width: 34rem) {
+  .punch h2 {
+    font-size: clamp(2.6rem, 7vw, 6rem);
+    letter-spacing: -0.04em;
+  }
+
+  .punch .ctas {
+    justify-content: center;
+  }
+
+  @media (max-width: 560px) {
     .dichotomy {
       grid-template-columns: 1fr;
-      gap: 1.75rem;
-    }
-    .divider {
-      width: auto;
-      height: 1px;
-    }
-  }
-
-  .foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-block: 2.5rem 3.5rem;
-    border-top: 1px solid var(--line);
-    font-size: 0.85rem;
-    color: var(--faint);
-  }
-
-  .foot-links {
-    display: flex;
-    gap: 1.4rem;
-  }
-
-  .foot a {
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .foot a:hover {
-    color: var(--accent);
-  }
-
-  /* scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .reveal.in {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
     }
   }
 </style>
-
-<script>
-  // Stagger-reveal sections as they scroll into view.
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      }
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
-  );
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-  // Hairline under the topbar once the hero is scrolled past.
-  const bar = document.querySelector(".topbar");
-  const onScroll = () => bar?.classList.toggle("scrolled", window.scrollY > 40);
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
-</script>
