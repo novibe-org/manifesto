@@ -29,6 +29,9 @@ npm run build      # production build → ./dist/
 npm run preview    # preview the build locally
 ```
 
+The build also writes [`/llms.txt`](https://novibe.org/llms.txt) and [`/llms-full.txt`](https://novibe.org/llms-full.txt)
+([llmstxt.org](https://llmstxt.org)) from the built pages — see `llms-txt.mjs`. Edit the pages, never the files.
+
 ## Related
 
 - **[nv-plugins](https://github.com/novibe-org/nv-plugins)** — the NoVibe method as a Claude Code plugin (architecture → spec → TDD).
