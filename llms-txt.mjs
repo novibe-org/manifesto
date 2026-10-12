@@ -5,13 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { parse } from 'node-html-parser';
 import { NodeHtmlMarkdown } from 'node-html-markdown';
 
-const pages = [
-  { path: '/', section: 'Manifesto' },
-  { path: '/practice', section: 'Manifesto' },
-  { path: '/tools', section: 'Manifesto' },
-  { path: '/legal', section: 'Optional' },
-  { path: '/privacy', section: 'Optional' },
-];
+// Every built page is listed; these go under Optional, which a model may skip when its context is short.
+const optional = ['/legal', '/privacy'];
 
 const read = async (dir, site, path) => {
   const file = new URL(path === '/' ? 'index.html' : `${path.slice(1)}/index.html`, dir);
@@ -47,8 +42,13 @@ export default function llmsTxt() {
       'astro:config:done': ({ config }) => {
         site = config.site.replace(/\/$/, '');
       },
-      'astro:build:done': async ({ dir }) => {
-        const read_ = await Promise.all(pages.map(async (p) => ({ ...p, ...(await read(dir, site, p.path)) })));
+      'astro:build:done': async ({ dir, pages }) => {
+        const paths = pages
+          .map((p) => `/${p.pathname.replace(/\/$/, '')}`)
+          .sort((a, b) => (a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b)));
+        const read_ = await Promise.all(
+          paths.map(async (path) => ({ path, section: optional.includes(path) ? 'Optional' : 'Manifesto', ...(await read(dir, site, path)) })),
+        );
         const [home] = read_;
         const practice = read_.find((p) => p.path === '/practice');
         // A page without a description of its own carries the home page's; say nothing rather than repeat it.
