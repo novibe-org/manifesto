@@ -34,5 +34,4 @@ The build also writes [`/llms.txt`](https://novibe.org/llms.txt) and [`/llms-ful
 
 ## Related
 
-- **[nv-plugins](https://github.com/novibe-org/nv-plugins)** — the NoVibe method as a Claude Code plugin (architecture → spec → TDD).
-- **nv** — the workspace tool *(coming soon)*.
+- **[novibe](https://github.com/novibe-org/novibe)**: the NoVibe method as a Claude Code plugin. You decide the Gherkin spec and the C4 design, Claude builds test-first until the spec passes.
